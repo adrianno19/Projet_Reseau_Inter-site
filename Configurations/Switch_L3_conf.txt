@@ -1,0 +1,65 @@
+!
+! Création des VLANs (Niveau 2)
+!
+Switch_L3(config)# vlan 40
+Switch_L3(config-vlan)# name labo
+Switch_L3(config)# vlan 50
+Switch_L3(config-vlan)# name surveillance
+Switch_L3(config)# vlan 60
+Switch_L3(config-vlan)# name wifiprive
+Switch_L3(config)# vlan 70
+Switch_L3(config-vlan)# name serveur
+!
+! Activation du routage IP
+!
+Switch_L3(config)# ip routing
+!
+! Configuration des interfaces VLAN (SVI)
+!
+Switch_L3(config)# interface vlan 40
+Switch_L3(config-if)# ip address 172.16.10.1 255.255.255.0
+Switch_L3(config-if)# ip helper-address 172.16.40.2
+Switch_L3(config-if)# no shutdown
+!
+Switch_L3(config)# interface vlan 50
+Switch_L3(config-if)# ip address 172.16.20.1 255.255.255.0
+Switch_L3(config-if)# ip helper-address 172.16.40.2
+Switch_L3(config-if)# no shutdown
+!
+Switch_L3(config)# interface vlan 60
+Switch_L3(config-if)# ip address 172.16.30.1 255.255.255.0
+Switch_L3(config-if)# ip helper-address 172.16.40.2
+Switch_L3(config-if)# no shutdown
+!
+Switch_L3(config)# interface vlan 70
+Switch_L3(config-if)# ip address 172.16.40.1 255.255.255.0
+Switch_L3(config-if)# no shutdown
+!
+! Affectation des ports d'accès aux VLANs (Niveau 2)
+!
+Switch_L3(config)# interface range fastethernet 0/2 - 5
+Switch_L3(config-if-range)# switchport mode access
+Switch_L3(config-if-range)# switchport access vlan 40
+!
+Switch_L3(config)# interface range fastethernet 0/3 - 6
+Switch_L3(config-if-range)# switchport mode access
+Switch_L3(config-if-range)# switchport access vlan 50
+!
+Switch_L3(config)# interface range fastethernet 0/4 - 7
+Switch_L3(config-if-range)# switchport mode access
+Switch_L3(config-if-range)# switchport access vlan 60
+!
+Switch_L3(config)# interface fastethernet 0/8
+Switch_L3(config-if)# switchport mode access
+Switch_L3(config-if)# switchport access vlan 70
+!
+! Configuration du port routé vers R2
+!
+Switch_L3(config)# interface gigabitethernet 0/1
+Switch_L3(config-if)# no switchport
+Switch_L3(config-if)# ip address 10.10.20.2 255.255.255.252
+Switch_L3(config-if)# no shutdown
+!
+! Route par défaut vers le routeur R2
+!
+Switch_L3(config)# ip route 0.0.0.0 0.0.0.0 10.10.20.1

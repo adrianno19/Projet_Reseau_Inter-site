@@ -1,0 +1,30 @@
+!
+! Configuration du serveur DHCP (par exemple, sur le site B)
+!
+! Le serveur doit avoir une adresse IP statique
+Serveur_DHCP2(config)# ip address 172.16.40.2 255.255.255.0
+Serveur_DHCP2(config)# default gateway 172.16.40.1
+Serveur_DHCP2(config)# dns server 172.16.40.2
+
+! Configuration du pool DHCP pour le VLAN 40
+Serveur_DHCP2(config)# service dhcp
+Serveur_DHCP2(config)# ip dhcp pool VLAN40
+Serveur_DHCP2(config-dhcp-pool)# network 172.16.10.0 255.255.255.0
+Serveur_DHCP2(config-dhcp-pool)# default-router 172.16.10.1
+Serveur_DHCP2(config-dhcp-pool)# dns-server 172.16.40.2
+!
+! Exclure les adresses avant la plage souhaitée
+!
+Serveur_DHCP2(config)# ip dhcp excluded-address 172.16.10.1 172.16.10.9
+
+! Répéter pour les autres VLANs et sites
+
+!
+! Configuration du serveur DNS (par exemple, sur le site B)
+!
+
+! Configuration des entrées DNS
+Serveur_DNS2(config)# service dns
+Serveur_DNS2(config)# ip domain-name www.site1.com 172.16.40.2 (adresse du serveur web)
+
+

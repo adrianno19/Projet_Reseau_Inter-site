@@ -1,0 +1,37 @@
+!
+! Configuration des VLANs
+!
+Switch_Site1(config)# vlan 10
+Switch_Site1(config-vlan)# name etudiants
+Switch_Site1(config)# vlan 20
+Switch_Site1(config-vlan)# name profs
+Switch_Site1(config)# vlan 30
+Switch_Site1(config-vlan)# name direction
+Switch_Site1(config)# vlan 5
+Switch_Site1(config-vlan)# name serveur
+!
+! Configuration du port trunk vers le routeur R1
+!
+Switch_Site1(config)# interface fastethernet 0/1
+Switch_Site1(config-if)# switchport mode trunk
+Switch_Site1(config-if)# switchport trunk allowed vlan 5,10,20,30
+!
+! Configuration des ports d'accès
+!
+!config vlan 5
+Switch_Site1(config)# interface fastethernet 0/8
+Switch_Site1(config-if)# switchport mode access
+Switch_Site1(config-if)# switchport access vlan 5
+
+!config vlan 10
+Switch_Site1(config)# interface range fastethernet 0/2 - 5
+Switch_Site1(config-if-range)# switchport mode access
+Switch_Site1(config-if-range)# switchport access vlan 10
+!config vlan 20
+Switch_Site1(config)# interface range fastethernet 0/3 - 6
+Switch_Site1(config-if-range)# switchport mode access
+Switch_Site1(config-if-range)# switchport access vlan 20
+!config vlan 30
+Switch_Site1(config)# interface range fastethernet 0/4 - 7
+Switch_Site1(config-if-range)# switchport mode access
+Switch_Site1(config-if-range)# switchport access vlan 30

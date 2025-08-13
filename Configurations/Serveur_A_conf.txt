@@ -1,0 +1,34 @@
+!
+! Configuration du serveur DHCP (par exemple, sur le site 1)
+!
+! Le serveur doit avoir une adresse IP statique
+Serveur_DHCP1(config)# ip address 192.168.1.2 255.255.255.0
+Serveur_DHCP1(config)# default gateway 192.168.10.1
+Serveur_DHCP1(config)# dns server 192.168.1.2
+
+! Configuration du pool DHCP pour le VLAN 10
+Serveur_DHCP1(config)# service dhcp
+Serveur_DHCP1(config)# ip dhcp pool VLAN10
+Serveur_DHCP1(config-dhcp-pool)# network 192.168.10.0 255.255.255.0
+Serveur_DHCP1(config-dhcp-pool)# default-router 192.168.10.1
+Serveur_DHCP1(config-dhcp-pool)# dns-server 192.168.1.2
+!
+! Exclure les adresses avant la plage souhaitée
+!
+Serveur_DHCP1(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.9
+
+! Répéter pour les autres VLANs et sites
+
+!
+! Configuration du serveur DNS (par exemple, sur le site 1)
+!
+! Le serveur DNS doit avoir une adresse IP statique
+Serveur_DNS1(config)# ip address 192.168.1.2 255.255.255.0
+Serveur_DNS1(config)# default gateway 192.168.10.1
+Serveur_DNS1(config)# dns server 192.168.1.2
+
+! Configuration des entrées DNS
+Serveur_DNS1(config)# service dns
+Serveur_DNS1(config)# ip domain-name www.site1.com 192.168.1.2 (adresse du serveur web)
+
+
