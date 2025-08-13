@@ -28,7 +28,7 @@ Les deux sites sont reliés par un **lien de routage statique** entre les deux r
 ## Topologie du Réseau
 
 Pour une meilleure compréhension de l'architecture, la topologie du réseau est disponible.
-https://github.com/adrianno19/Projet_Reseau_Inter-site/blob/main/Topologie%20du%20reseau.png
+https://github.com/adrianno19/Projet_Reseau_Hybride/blob/main/Topologie%20du%20reseau.png
 
 ---
 
